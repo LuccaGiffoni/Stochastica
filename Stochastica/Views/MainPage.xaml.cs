@@ -1,4 +1,4 @@
-﻿namespace Stochastica
+﻿namespace Stochastica.Views
 {
     public partial class MainPage : ContentPage
     {
