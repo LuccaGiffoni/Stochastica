@@ -1,8 +1,8 @@
 ﻿using SkiaSharp;
 
-namespace Stochastica.Drawables;
+namespace Stochastica.Models;
 
-public class BrownianMotionDrawable(double sigma, double mean, double initialPrice, int numDays) 
+public class BrownianMotionDrawable(double sigma, double mean, double initialPrice, int numDays)
 {
     public double Sigma { get; set; } = sigma;
     public double Mean { get; set; } = mean;
@@ -12,7 +12,7 @@ public class BrownianMotionDrawable(double sigma, double mean, double initialPri
     public void Draw(SKCanvas canvas, SKRect dirtyRect)
     {
         var prices = GenerateBrownianMotion(Sigma, Mean, InitialPrice, NumDays);
-        //DrawGraph(canvas, dirtyRect, prices);
+        DrawGraph(canvas, dirtyRect, prices);
     }
 
     public static double[] GenerateBrownianMotion(double sigma, double mean, double initialPrice, int numDays)

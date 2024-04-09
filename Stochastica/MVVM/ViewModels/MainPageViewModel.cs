@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Stochastica.Drawables;
 
-namespace Stochastica.ViewModels;
+namespace Stochastica.MVVM.ViewModels;
 
 public partial class MainPageViewModel : ObservableObject
 {
