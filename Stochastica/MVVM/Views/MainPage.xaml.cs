@@ -1,10 +1,15 @@
-﻿namespace Stochastica.MVVM.Views;
+﻿using Stochastica.MVVM.ViewModels;
+using Stochastica.MVVM.Views.Interfaces;
+
+namespace Stochastica.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {
-    public MainPage()
+    public MainPage(MainPageViewModel mainPageViewModel)
     {
         InitializeComponent();
+
+        BindingContext = mainPageViewModel;
 
         InitialPriceEntry.TextChanged += OnDoubleEntry;
         SigmaEntry.TextChanged += OnDoubleEntry;

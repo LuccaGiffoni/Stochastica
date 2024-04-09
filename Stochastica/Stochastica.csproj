@@ -56,6 +56,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Drawables\**" />
+	  <Compile Remove="Drawables\**" />
+	  <EmbeddedResource Remove="Drawables\**" />
+	  <MauiCss Remove="Drawables\**" />
+	  <MauiXaml Remove="Drawables\**" />
+	  <None Remove="Drawables\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\clear_icon.svg" />
 	</ItemGroup>
 
@@ -68,7 +77,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Drawables\" />
 	  <Folder Include="MVVM\Models\" />
 	</ItemGroup>
 
