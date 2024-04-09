@@ -16,9 +16,7 @@
             </Grid.ColumnDefinitions>
 
             <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#0D1A34" >
-                <views:BrownianGraphView Data="{Binding BrownianData}"
-                                 HorizontalScale="{Binding HorizontalScale}"
-                                 VerticalScale="{Binding VerticalScale}" />
+                <views:BrownianGraphView Data="{Binding BrownianData}" HorizontalScale="{Binding HorizontalScale}" VerticalScale="{Binding VerticalScale}" />
             </Frame>
 
             <VerticalStackLayout Spacing="20" Grid.Column="1" >
@@ -32,10 +30,25 @@
                         <Label Text="Informações da Simulação" FontSize="Micro" HorizontalOptions="Center"/>
                         
                         <StackLayout Spacing="10">
-                            <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
-                            <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
-                            <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
-                            <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                            <VerticalStackLayout>
+                                <Label Text="Preço Inicial" HorizontalOptions="Start" />
+                                <Entry x:Name="InitialPriceEntry" Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Volatilidade Média (%)" HorizontalOptions="Start" />
+                                <Entry x:Name="SigmaEntry" Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Retorno Médio (%)" HorizontalOptions="Start" />
+                                <Entry x:Name="MeanEntry" Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Tempo (em dias)" HorizontalOptions="Start" />
+                                <Entry x:Name="NumDaysEntry" Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                            </VerticalStackLayout>
                         </StackLayout>
                     </VerticalStackLayout>
 
