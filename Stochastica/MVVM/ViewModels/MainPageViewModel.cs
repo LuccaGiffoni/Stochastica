@@ -1,29 +1,44 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Stochastica.Drawables;
 
 namespace Stochastica.MVVM.ViewModels;
 
 public partial class MainPageViewModel : ObservableObject
 {
-    public double Sigma { get; set; }
-    public double Mean { get; set; }
-    public double InitialPrice { get; set; }
-    public int NumDays { get; set; }
+    [ObservableProperty] public string sigma;
+    [ObservableProperty] private string mean;
+    [ObservableProperty] private string initialPrice;
+    [ObservableProperty] private string numDays;
+    [ObservableProperty] private double[] brownianData;
 
     public Command GenerateGraphCommand { get; }
-
-    private BrownianMotionDrawable _brownianMotionDrawable;
-    public BrownianMotionDrawable BrownianMotionDrawable
-    {
-        get => _brownianMotionDrawable;
-        set => SetProperty(ref _brownianMotionDrawable, value);
-    }
 
     public MainPageViewModel() => GenerateGraphCommand = new Command(GenerateGraph);
 
     private void GenerateGraph()
     {
-        //BrownianMotionDrawable = new BrownianMotionDrawable(Sigma, Mean, InitialPrice, NumDays);
-        BrownianMotionDrawable = new BrownianMotionDrawable(10, 10, 20, 100);
+        double sigma = Convert.ToDouble(Sigma) / 100;
+        double mean = Convert.ToDouble(Mean) / 100;
+        double initialPrice = Convert.ToDouble(InitialPrice);
+        int numDays = Convert.ToInt32(NumDays);
+
+        BrownianData = GenerateBrownianMotion(sigma, mean, initialPrice, numDays);
+    }
+
+    private static double[] GenerateBrownianMotion(double sigma, double mean, double initialPrice, int numDays)
+    {
+        Random rand = new Random();
+        double[] prices = new double[numDays];
+        prices[0] = initialPrice;
+
+        for (int i = 1; i < numDays; i++)
+        {
+            double u1 = 1.0 - rand.NextDouble();
+            double u2 = 1.0 - rand.NextDouble();
+            double z = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+            double dailyReturn = mean + sigma * z;
+            prices[i] = prices[i - 1] * Math.Exp(dailyReturn);
+        }
+
+        return prices;
     }
 }

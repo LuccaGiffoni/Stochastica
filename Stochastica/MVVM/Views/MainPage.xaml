@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Stochastica.MVVM.ViewModels"
              xmlns:models="clr-namespace:Stochastica.MVVM.Models"
+             xmlns:views="clr-namespace:Stochastica.MVVM.Views"
              x:Class="Stochastica.MVVM.Views.MainPage">
 
     <ContentPage.BindingContext>
@@ -16,14 +17,20 @@
                 <ColumnDefinition Width="0.3*" />
             </Grid.ColumnDefinitions>
 
-            <StackLayout Grid.Column="1" Padding="10">
-                <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
-                <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
-                <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
-                <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" Padding="10" >
+                <views:BrownianGraphView Data="{Binding BrownianData}" />
+            </Frame>
 
-                <Button Text="Gerar gráfico" Command="{Binding GenerateGraphCommand}"/>
-            </StackLayout>
+            <VerticalStackLayout Spacing="20" Grid.Column="1" >
+                <StackLayout Spacing="10">
+                    <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
+                    <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
+                    <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
+                    <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                </StackLayout>
+
+                <Button Text="Gerar simulação" Command="{Binding GenerateGraphCommand}" />
+            </VerticalStackLayout>
         </Grid>
     </ScrollView>
 

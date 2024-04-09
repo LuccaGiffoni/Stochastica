@@ -64,4 +64,9 @@
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.0.0-preview.2.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Drawables\" />
+	  <Folder Include="MVVM\Models\" />
+	</ItemGroup>
+
 </Project>
