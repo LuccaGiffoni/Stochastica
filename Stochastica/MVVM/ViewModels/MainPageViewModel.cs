@@ -60,7 +60,21 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
-    [ObservableProperty] private double[] brownianData;
+    private int _numLines = 1;
+    public int NumLines
+    {
+        get => _numLines;
+        set
+        {
+            if (value > 0)
+            {
+                _numLines = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    [ObservableProperty] public double[][] brownianData;
 
     [ObservableProperty] private double _horizontalScale = 1.0;
     [ObservableProperty] private double _verticalScale = 1.0;
@@ -70,7 +84,7 @@ public partial class MainPageViewModel : ObservableObject
 
     public MainPageViewModel()
     {
-        GenerateGraphCommand = new Command(GenerateGraph);
+        GenerateGraphCommand = new Command(GenerateGraphData);
         ResetScalesCommand = new Command(ResetScales);
     }
 
@@ -79,10 +93,16 @@ public partial class MainPageViewModel : ObservableObject
         HorizontalScale = 1.0;
         VerticalScale = 1.0;
     }
-
-    private void GenerateGraph()
+    private void GenerateGraphData()
     {
-        BrownianData = GenerateBrownianMotion(Sigma / 100, Mean / 100, InitialPrice, NumDays);
+        double[][] graphData = new double[NumLines][];
+
+        for (int i = 0; i < NumLines; i++)
+        {
+            graphData[i] = GenerateBrownianMotion(Sigma / 100, Mean / 100, InitialPrice, NumDays);
+        }
+
+        BrownianData = graphData;
     }
 
     private static double[] GenerateBrownianMotion(double sigma, double mean, double initialPrice, int numDays)

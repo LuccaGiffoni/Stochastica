@@ -2,7 +2,7 @@
 
 public interface IBrownianGraphView
 {
-    double[] Data { get; set; }
+    double[][] GraphData { get; set; }
     double HorizontalScale { get; set; }
     double VerticalScale { get; set; }
 }

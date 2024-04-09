@@ -2,19 +2,36 @@
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 using Stochastica.MVVM.Views.Interfaces;
+using System.Diagnostics;
 
 namespace Stochastica.MVVM.Views;
 
 public class BrownianGraphView : SKCanvasView, IBrownianGraphView
 {
-    public static readonly BindableProperty DataProperty =
-        BindableProperty.Create(nameof(Data), typeof(double[]), typeof(BrownianGraphView), null,
-            propertyChanged: (bindable, oldValue, newValue) => (bindable as BrownianGraphView)?.InvalidateSurface());
+    public static readonly BindableProperty NumLinesProperty =
+    BindableProperty.Create(nameof(NumLines), typeof(int), typeof(BrownianGraphView), 1,
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            (bindable as BrownianGraphView)?.InvalidateSurface();
+        });
 
-    public double[] Data
+    public int NumLines
     {
-        get => (double[])GetValue(DataProperty);
-        set => SetValue(DataProperty, value);
+        get => (int)GetValue(NumLinesProperty);
+        set => SetValue(NumLinesProperty, value);
+    }
+
+    public static readonly BindableProperty GraphDataProperty =
+        BindableProperty.Create(nameof(GraphData), typeof(double[][]), typeof(BrownianGraphView), null,
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                (bindable as BrownianGraphView)?.InvalidateSurface();
+            });
+
+    public double[][] GraphData
+    {
+        get => (double[][])GetValue(GraphDataProperty);
+        set => SetValue(GraphDataProperty, value);
     }
 
     public static readonly BindableProperty HorizontalScaleProperty =
@@ -45,30 +62,49 @@ public class BrownianGraphView : SKCanvasView, IBrownianGraphView
 
         canvas.Clear();
 
-        if (Data != null && Data.Length > 0)
+        if (GraphData != null && GraphData.Length > 0)
         {
-            using (var paint = new SKPaint())
+            int numGraphs = GraphData.Length;
+            var dataLength = GraphData[0].Length;
+
+            using var paint = new SKPaint();
+            for (int k = 0; k < numGraphs; k++)
             {
+                double[] data = GraphData[k];
+
                 paint.Style = SKPaintStyle.Stroke;
-                paint.Color = SKColors.WhiteSmoke;
+                paint.Color = GetRandomContrastColor();
                 paint.StrokeWidth = 2;
                 paint.StrokeCap = SKStrokeCap.Round;
 
                 var path = new SKPath();
-                var xScale = e.Info.Width / (Data.Length - 1) * HorizontalScale;
-                var yScale = e.Info.Height / (Data.Max() - Data.Min()) * VerticalScale;
+                var xScale = e.Info.Width / (dataLength - 1);
+                var yScale = e.Info.Height / (data.Max() - data.Min());
 
-                path.MoveTo(0, (float)(e.Info.Height - Data[0] * yScale));
+                path.MoveTo(0, (float)(e.Info.Height - data[0] * yScale));
 
-                for (int i = 1; i < Data.Length; i++)
+                for (int i = 1; i < dataLength; i++)
                 {
                     var x = i * xScale;
-                    var y = (float)(e.Info.Height - Data[i] * yScale);
+                    var y = (float)(e.Info.Height - data[i] * yScale);
                     path.LineTo((float)x, y);
                 }
 
                 canvas.DrawPath(path, paint);
             }
         }
+    }
+
+    private static SKColor GetRandomContrastColor()
+    {
+        Random random = new();
+
+        int hue = random.Next(0, 360);
+        int saturation = random.Next(40, 101);
+        int lightness = random.Next(40, 61);
+
+        SKColor color = SKColor.FromHsl(hue, saturation, lightness);
+
+        return SKColor.Parse($"#{color.Red:X2}{color.Green:X2}{color.Blue:X2}");
     }
 }

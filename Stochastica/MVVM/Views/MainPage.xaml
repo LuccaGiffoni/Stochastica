@@ -11,7 +11,7 @@
             </Grid.ColumnDefinitions>
 
             <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#0D1A34" >
-                <views:BrownianGraphView Data="{Binding BrownianData}" HorizontalScale="{Binding HorizontalScale}" VerticalScale="{Binding VerticalScale}" />
+                <views:BrownianGraphView GraphData="{Binding BrownianData}" HorizontalScale="{Binding HorizontalScale}" VerticalScale="{Binding VerticalScale}" />
             </Frame>
 
             <VerticalStackLayout Spacing="20" Grid.Column="1" >
@@ -43,6 +43,11 @@
                             <VerticalStackLayout>
                                 <Label Text="Tempo (em dias)" HorizontalOptions="Start" />
                                 <Entry x:Name="NumDaysEntry" Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="20">
+                                <Label Text="Linhas de Simulação" FontSize="Micro" HorizontalOptions="Center"/>
+                                <Entry x:Name="NumLinesEntry" Placeholder="Quantas linhas você quer criar?" Text="{Binding NumLines}" />
                             </VerticalStackLayout>
                         </StackLayout>
                     </VerticalStackLayout>
