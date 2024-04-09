@@ -10,9 +10,23 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty] private string numDays;
     [ObservableProperty] private double[] brownianData;
 
-    public Command GenerateGraphCommand { get; }
+    [ObservableProperty] private double _horizontalScale = 1.0;
+    [ObservableProperty] private double _verticalScale = 1.0;
 
-    public MainPageViewModel() => GenerateGraphCommand = new Command(GenerateGraph);
+    public Command GenerateGraphCommand { get; }
+    public Command ResetScalesCommand { get; }
+
+    public MainPageViewModel()
+    {
+        GenerateGraphCommand = new Command(GenerateGraph);
+        ResetScalesCommand = new Command(ResetScales);
+    }
+
+    private void ResetScales()
+    {
+        HorizontalScale = 1.0;
+        VerticalScale = 1.0;
+    }
 
     private void GenerateGraph()
     {

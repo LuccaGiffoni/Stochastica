@@ -1,8 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Stochastica.MVVM.ViewModels"
-             xmlns:models="clr-namespace:Stochastica.MVVM.Models"
              xmlns:views="clr-namespace:Stochastica.MVVM.Views"
              x:Class="Stochastica.MVVM.Views.MainPage">
 
@@ -11,25 +9,57 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <Grid x:Name="grid">
+        <Grid x:Name="grid" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.7*" />
                 <ColumnDefinition Width="0.3*" />
             </Grid.ColumnDefinitions>
 
-            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" Padding="10" >
-                <views:BrownianGraphView Data="{Binding BrownianData}" />
+            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#0D1A34" >
+                <views:BrownianGraphView Data="{Binding BrownianData}"
+                                 HorizontalScale="{Binding HorizontalScale}"
+                                 VerticalScale="{Binding VerticalScale}" />
             </Frame>
 
             <VerticalStackLayout Spacing="20" Grid.Column="1" >
-                <StackLayout Spacing="10">
-                    <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
-                    <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
-                    <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
-                    <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
-                </StackLayout>
+                <VerticalStackLayout Spacing="-5">
+                    <Label Text="Stochastica" FontSize="Large" HorizontalOptions="Center" />
+                    <Label Text="Brownian Graph Generator, Lucca Giffoni" FontSize="Micro" HorizontalOptions="Center" />
+                </VerticalStackLayout>
 
-                <Button Text="Gerar simulação" Command="{Binding GenerateGraphCommand}" />
+                <VerticalStackLayout Padding="0, 30" Spacing="30">
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Informações da Simulação" FontSize="Micro" HorizontalOptions="Center"/>
+                        
+                        <StackLayout Spacing="10">
+                            <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
+                            <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
+                            <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
+                            <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                        </StackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Configurações do Gráfico" FontSize="Micro" HorizontalOptions="Center"/>
+                            
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" >
+                            <VerticalStackLayout>
+                                <Label Text="Escala Horizontal" FontSize="Micro" HorizontalOptions="Center" />
+                                <Stepper Value="{Binding HorizontalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Escala Vertical" HorizontalOptions="Center" FontSize="Micro" />
+                                <Stepper Value="{Binding VerticalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                            </VerticalStackLayout>
+
+                            <Button Text="Resetar" Command="{Binding ResetScalesCommand}" HorizontalOptions="CenterAndExpand"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+                <Button Text="Gerar simulação" Command="{Binding GenerateGraphCommand}" Padding="10, 0, 0, 0"/>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

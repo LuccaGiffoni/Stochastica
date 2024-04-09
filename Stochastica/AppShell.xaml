@@ -12,4 +12,8 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <Shell.TitleView>
+        <Image Source="clear_icon.svg" />
+    </Shell.TitleView>
+
 </Shell>
