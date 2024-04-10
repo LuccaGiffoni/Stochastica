@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Stochastica.MVVM.ViewModels;
+using Stochastica.MVVM.Views;
+using Stochastica.MVVM.Views.Interfaces;
 
 namespace Stochastica
 {
@@ -17,8 +20,11 @@ namespace Stochastica
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IBrownianGraphView, BrownianGraphView>();
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

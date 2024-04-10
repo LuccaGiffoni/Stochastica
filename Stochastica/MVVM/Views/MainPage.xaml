@@ -1,27 +1,26 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Stochastica.MVVM.ViewModels"
              xmlns:views="clr-namespace:Stochastica.MVVM.Views"
              x:Class="Stochastica.MVVM.Views.MainPage">
 
-    <ContentPage.BindingContext>
-        <vm:MainPageViewModel />
-    </ContentPage.BindingContext>
+    <Grid x:Name="grid" ColumnSpacing="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*" />
+            <ColumnDefinition Width="0.3*" />
+        </Grid.ColumnDefinitions>
 
-    <ScrollView>
-        <Grid x:Name="grid" ColumnSpacing="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="0.3*" />
-            </Grid.ColumnDefinitions>
+        <ScrollView x:Name="scrollView" Grid.Column="0" BackgroundColor="#0D1A34" IsClippedToBounds="True" HorizontalScrollBarVisibility="Always">
+            <views:BrownianGraphView 
+            WidthRequest="{Binding GraphSize.Widht, Source={x:Reference scrollView}}"
+            HeightRequest="{Binding GraphSize.Height, Source={x:Reference scrollView}}"
+            GraphData="{Binding BrownianData}" 
+            HorizontalScale="{Binding HorizontalScale}" 
+            VerticalScale="{Binding VerticalScale}" 
+            NumLines="{Binding NumLines}" />
+        </ScrollView>
 
-            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#0D1A34" >
-                <views:BrownianGraphView Data="{Binding BrownianData}"
-                                 HorizontalScale="{Binding HorizontalScale}"
-                                 VerticalScale="{Binding VerticalScale}" />
-            </Frame>
-
-            <VerticalStackLayout Spacing="20" Grid.Column="1" >
+        <ScrollView Grid.Column="1" Margin="0, 0, 20, 0">
+            <VerticalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="-5">
                     <Label Text="Stochastica" FontSize="Large" HorizontalOptions="Center" />
                     <Label Text="Brownian Graph Generator, Lucca Giffoni" FontSize="Micro" HorizontalOptions="Center" />
@@ -32,11 +31,31 @@
                         <Label Text="Informações da Simulação" FontSize="Micro" HorizontalOptions="Center"/>
                         
                         <StackLayout Spacing="10">
-                            <Entry Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
-                            <Entry Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
-                            <Entry Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
-                            <Entry Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                            <VerticalStackLayout>
+                                <Label Text="Preço Inicial" HorizontalOptions="Start" />
+                                <Entry x:Name="InitialPriceEntry" Placeholder="Preço Inicial" Text="{Binding InitialPrice}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Volatilidade Média (%)" HorizontalOptions="Start" />
+                                <Entry x:Name="SigmaEntry" Placeholder="Volatilidade Média (%)" Text="{Binding Sigma}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Retorno Médio (%)" HorizontalOptions="Start" />
+                                <Entry x:Name="MeanEntry" Placeholder="Retorno Médio (%)" Text="{Binding Mean}" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Tempo (em dias)" HorizontalOptions="Start" />
+                                <Entry x:Name="NumDaysEntry" Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
+                            </VerticalStackLayout>
                         </StackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Linhas de Simulação" FontSize="Micro" HorizontalOptions="Center"/>
+                        <Entry x:Name="NumLinesEntry" Placeholder="Quantas linhas você quer criar?" Text="{Binding NumLines}" />
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Spacing="20">
@@ -45,14 +64,14 @@
                         <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" >
                             <VerticalStackLayout>
                                 <Label Text="Escala Horizontal" FontSize="Micro" HorizontalOptions="Center" />
-                                <Stepper Value="{Binding HorizontalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                                <Slider Value="{Binding HorizontalScale, Mode=TwoWay}" Minimum="1" Maximum="15" />
                             </VerticalStackLayout>
 
                             <VerticalStackLayout>
                                 <Label Text="Escala Vertical" HorizontalOptions="Center" FontSize="Micro" />
-                                <Stepper Value="{Binding VerticalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                                <Slider Value="{Binding VerticalScale, Mode=TwoWay}" Minimum="1" Maximum="15" />
                             </VerticalStackLayout>
-
+                            
                             <Button Text="Resetar" Command="{Binding ResetScalesCommand}" HorizontalOptions="CenterAndExpand"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
@@ -61,7 +80,7 @@
 
                 <Button Text="Gerar simulação" Command="{Binding GenerateGraphCommand}" Padding="10, 0, 0, 0"/>
             </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 
 </ContentPage>
