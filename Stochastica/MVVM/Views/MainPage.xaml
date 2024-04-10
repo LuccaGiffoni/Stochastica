@@ -3,18 +3,24 @@
              xmlns:views="clr-namespace:Stochastica.MVVM.Views"
              x:Class="Stochastica.MVVM.Views.MainPage">
 
-    <ScrollView>
-        <Grid x:Name="grid" ColumnSpacing="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="0.3*" />
-            </Grid.ColumnDefinitions>
+    <Grid x:Name="grid" ColumnSpacing="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*" />
+            <ColumnDefinition Width="0.3*" />
+        </Grid.ColumnDefinitions>
 
-            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#0D1A34" >
-                <views:BrownianGraphView GraphData="{Binding BrownianData}" HorizontalScale="{Binding HorizontalScale}" VerticalScale="{Binding VerticalScale}" />
-            </Frame>
+        <ScrollView x:Name="scrollView" Grid.Column="0" BackgroundColor="#0D1A34" IsClippedToBounds="True" HorizontalScrollBarVisibility="Always">
+            <views:BrownianGraphView 
+            WidthRequest="{Binding GraphSize.Widht, Source={x:Reference scrollView}}"
+            HeightRequest="{Binding GraphSize.Height, Source={x:Reference scrollView}}"
+            GraphData="{Binding BrownianData}" 
+            HorizontalScale="{Binding HorizontalScale}" 
+            VerticalScale="{Binding VerticalScale}" 
+            NumLines="{Binding NumLines}" />
+        </ScrollView>
 
-            <VerticalStackLayout Spacing="20" Grid.Column="1" >
+        <ScrollView Grid.Column="1" Margin="0, 0, 20, 0">
+            <VerticalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="-5">
                     <Label Text="Stochastica" FontSize="Large" HorizontalOptions="Center" />
                     <Label Text="Brownian Graph Generator, Lucca Giffoni" FontSize="Micro" HorizontalOptions="Center" />
@@ -44,12 +50,12 @@
                                 <Label Text="Tempo (em dias)" HorizontalOptions="Start" />
                                 <Entry x:Name="NumDaysEntry" Placeholder="Tempos (em dias)" Text="{Binding NumDays}" />
                             </VerticalStackLayout>
-
-                            <VerticalStackLayout Spacing="20">
-                                <Label Text="Linhas de Simulação" FontSize="Micro" HorizontalOptions="Center"/>
-                                <Entry x:Name="NumLinesEntry" Placeholder="Quantas linhas você quer criar?" Text="{Binding NumLines}" />
-                            </VerticalStackLayout>
                         </StackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Linhas de Simulação" FontSize="Micro" HorizontalOptions="Center"/>
+                        <Entry x:Name="NumLinesEntry" Placeholder="Quantas linhas você quer criar?" Text="{Binding NumLines}" />
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Spacing="20">
@@ -58,14 +64,14 @@
                         <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" >
                             <VerticalStackLayout>
                                 <Label Text="Escala Horizontal" FontSize="Micro" HorizontalOptions="Center" />
-                                <Stepper Value="{Binding HorizontalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                                <Slider Value="{Binding HorizontalScale, Mode=TwoWay}" Minimum="1" Maximum="15" />
                             </VerticalStackLayout>
 
                             <VerticalStackLayout>
                                 <Label Text="Escala Vertical" HorizontalOptions="Center" FontSize="Micro" />
-                                <Stepper Value="{Binding VerticalScale, Mode=TwoWay}" Minimum="0.1" Maximum="10" Increment="0.1" />
+                                <Slider Value="{Binding VerticalScale, Mode=TwoWay}" Minimum="1" Maximum="15" />
                             </VerticalStackLayout>
-
+                            
                             <Button Text="Resetar" Command="{Binding ResetScalesCommand}" HorizontalOptions="CenterAndExpand"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
@@ -74,7 +80,7 @@
 
                 <Button Text="Gerar simulação" Command="{Binding GenerateGraphCommand}" Padding="10, 0, 0, 0"/>
             </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 
 </ContentPage>

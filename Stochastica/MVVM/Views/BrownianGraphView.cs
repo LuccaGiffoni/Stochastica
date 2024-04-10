@@ -2,12 +2,13 @@
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 using Stochastica.MVVM.Views.Interfaces;
-using System.Diagnostics;
 
 namespace Stochastica.MVVM.Views;
 
 public class BrownianGraphView : SKCanvasView, IBrownianGraphView
 {
+    private Dictionary<int, SKColor> graphColors = [];
+
     public static readonly BindableProperty NumLinesProperty =
     BindableProperty.Create(nameof(NumLines), typeof(int), typeof(BrownianGraphView), 1,
         propertyChanged: (bindable, oldValue, newValue) =>
@@ -54,12 +55,26 @@ public class BrownianGraphView : SKCanvasView, IBrownianGraphView
         set => SetValue(VerticalScaleProperty, value);
     }
 
+    private Size _graphSize;
+
+    public Size GraphSize
+    {
+        get => _graphSize;
+        private set
+        {
+            if (_graphSize != value)
+            {
+                _graphSize = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         base.OnPaintSurface(e);
 
         var canvas = e.Surface.Canvas;
-
         canvas.Clear();
 
         if (GraphData != null && GraphData.Length > 0)
@@ -73,13 +88,14 @@ public class BrownianGraphView : SKCanvasView, IBrownianGraphView
                 double[] data = GraphData[k];
 
                 paint.Style = SKPaintStyle.Stroke;
-                paint.Color = GetRandomContrastColor();
+                paint.Color = GetGraphColor(k);
+
                 paint.StrokeWidth = 2;
                 paint.StrokeCap = SKStrokeCap.Round;
 
                 var path = new SKPath();
-                var xScale = e.Info.Width / (dataLength - 1);
-                var yScale = e.Info.Height / (data.Max() - data.Min());
+                var xScale = e.Info.Width / (dataLength - 1) * HorizontalScale;
+                var yScale = e.Info.Height / (data.Max() - data.Min()) * VerticalScale;
 
                 path.MoveTo(0, (float)(e.Info.Height - data[0] * yScale));
 
@@ -91,11 +107,20 @@ public class BrownianGraphView : SKCanvasView, IBrownianGraphView
                 }
 
                 canvas.DrawPath(path, paint);
+
+                InvalidateMeasure();
             }
         }
     }
 
-    private static SKColor GetRandomContrastColor()
+    private SKColor GetGraphColor(int index)
+    {
+        if (!graphColors.ContainsKey(index)) graphColors[index] = GenerateRandomContrastColor();
+
+        return graphColors[index];
+    }
+
+    private static SKColor GenerateRandomContrastColor()
     {
         Random random = new();
 
