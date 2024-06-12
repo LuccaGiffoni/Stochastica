@@ -1,26 +1,31 @@
 # Stochastica
-Este repositório é dedicado à implementação da aplicação Stochastica, desenvolvida como parte de um desafio proposto. A aplicação é uma ferramenta de simulação de movimento browniano, comumente utilizado em finanças para modelar o comportamento estocástico dos preços.
 
-## Proposta
-A proposta da aplicação Stochastica é fornecer uma interface amigável e funcional para a simulação de movimento browniano, permitindo que os usuários configurem diversos parâmetros e visualizem os resultados de forma clara e intuitiva.
+This repository is dedicated to the implementation of the Stochastica application, developed as part of a proposed challenge. The application is a tool for simulating Brownian motion, commonly used in finance to model the stochastic behavior of prices.
 
-## Incrementos
-Além dos requisitos mínimos do desafio, foram implementados os seguintes incrementos:
+## Proposal
 
-- **Sistema de Escalas:** Adicionou-se uma escala vertical e horizontal no gráfico para facilitar a interpretação dos resultados.
-- **Múltiplas Simulações:** O usuário pode agora simular múltiplos resultados, definindo o número de simulações desejadas e visualizando todas as linhas no mesmo gráfico.
-- **Componentes Enriquecidos:** Foram utilizados componentes como steppers e sliders para a entrada de parâmetros, melhorando a experiência do usuário.
-- **Personalização Visual:** Permitiu-se que o usuário personalize visualmente o gráfico, escolhendo a quantidade de linhas de plotagem que quiser e ainda com um sistema automático de seleção de cores em contraste.
-- **Responsividade Aprimorada:** A aplicação foi desenvolvida com foco na responsividade, garantindo uma experiência consistente em diferentes dispositivos e tamanhos de tela.
+The purpose of the Stochastica application is to provide a user-friendly and functional interface for simulating Brownian motion, allowing users to configure various parameters and view the results clearly and intuitively.
 
-## Padrões e Boas Práticas
-A implementação da aplicação Stochastica segue rigorosamente os seguintes padrões e boas práticas:
+## Enhancements
 
-- Utilização do padrão MVVM (Model-View-ViewModel) para uma separação clara de responsabilidades e uma arquitetura modular e escalável.
-- Adoção das diretrizes de design da Microsoft para garantir uma interface consistente e de fácil utilização para os usuários.
-- Cumprimento dos padrões de codificação do .NET, garantindo a legibilidade, manutenibilidade e desempenho do código.
-- Implementação de testes unitários utilizando frameworks como NUnit ou MSTest para assegurar a qualidade do software e facilitar a detecção de regressões.
-- Uso de comentários no código para explicar a lógica de funcionamento, facilitando a compreensão e manutenção do mesmo por outros desenvolvedores.
+In addition to the minimum challenge requirements, the following enhancements have been implemented:
 
-## Print da Aplicação Funcionando
+- **Scale System:** Added vertical and horizontal scales to the graph to facilitate result interpretation.
+- **Multiple Simulations:** Users can now simulate multiple outcomes, defining the desired number of simulations and viewing all lines on the same graph.
+- **Enhanced Components:** Components such as steppers and sliders have been used for parameter input, improving the user experience.
+- **Visual Customization:** Users can visually customize the graph by choosing the number of plot lines and using an automatic contrasting color selection system.
+- **Improved Responsiveness:** The application was developed with a focus on responsiveness, ensuring a consistent experience across different devices and screen sizes.
+
+## Standards and Best Practices
+
+The implementation of the Stochastica application strictly follows these standards and best practices:
+
+- Use of the MVVM (Model-View-ViewModel) pattern for clear separation of responsibilities and a modular, scalable architecture.
+- Adoption of Microsoft's design guidelines to ensure a consistent and user-friendly interface.
+- Compliance with .NET coding standards to ensure code readability, maintainability, and performance.
+- Implementation of unit tests using frameworks such as NUnit or MSTest to ensure software quality and facilitate regression detection.
+- Use of comments in the code to explain the logic, making it easier for other developers to understand and maintain.
+
+## Screenshot of the Working Application
+
 ![Stochastica-RealApplication](https://github.com/LuccaGiffoni/Stochastica/assets/81778943/ca416461-e804-4e44-9df3-52a778f87c35)
