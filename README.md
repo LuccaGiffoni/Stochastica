@@ -2,6 +2,32 @@
 
 This repository is dedicated to the implementation of the Stochastica application, developed as part of a proposed challenge. The application is a tool for simulating Brownian motion, commonly used in finance to model the stochastic behavior of prices.
 
+## Summary
+### Key features
+
+1. Brownian Motion Visualization: Generation of real-time Brownian motion paths, demonstrating stochastic behaviors through interactive graphs.
+2. User-Controlled Parameters: Customizable parameters for simulations, such as time steps, drift, volatility, and more, to explore different scenarios and outcomes.
+3. Multi-Platform Support: Seamless performance on Windows, macOS, iOS, and Android, leveraging .NET MAUI's cross-platform capabilities.
+4. Interactive Graphs: Implementation of responsive and interactive graphs using powerful charting libraries, enabling zoom, pan, and detailed inspection of data points.
+5. Educational Tools: Inclusion of descriptive statistics and tools to help users understand the underlying mathematics and applications of Brownian motion.
+   
+### Skills and Technologies
+
+1. .NET MAUI: Utilized .NET MAUI for developing a single codebase application that runs on multiple platforms with a native look and feel.
+2. C# and .NET: Employed C# and the .NET framework for core logic and mathematical computations behind the Brownian motion simulations.
+3. SkiaSharp for MAUI: Integrated SkiaSharp for rendering high-quality and interactive graphs, providing smooth visualization of stochastic paths.
+4. MVVM Pattern: Followed the MVVM (Model-View-ViewModel) architecture to ensure a clean separation of concerns, facilitating easier maintenance and testing.
+5. XAML: Used XAML for designing the UI, enabling clear and maintainable user interface code.
+6. Async and Parallel Programming: Leveraged async and parallel programming techniques to handle real-time graph updates and computations without blocking the UI.
+7. Cross-Platform Compatibility: Ensured consistent behavior and appearance across various devices and operating systems by addressing platform-specific challenges.
+8. Data Binding: Implemented robust data binding to synchronize user input and application state, enhancing the responsiveness and interactivity of the UI.
+
+### Educational Value
+
+1. Stochastic Processes: Provides users with an interactive tool to study and visualize Brownian motion, offering insights into stochastic processes.
+2. Hands-On Learning: Enhances learning through visualization, making abstract mathematical concepts more accessible and engaging.
+3. Application in Finance and Physics: Demonstrates practical applications in fields such as quantitative finance for modeling stock prices and in physics for particle motion.
+
 ## Proposal
 
 The purpose of the Stochastica application is to provide a user-friendly and functional interface for simulating Brownian motion, allowing users to configure various parameters and view the results clearly and intuitively.
